@@ -143,7 +143,7 @@ def resize(val, fmt, round_mode='convergent', overflow_mode='saturate'):
     if isinstance(fmt, fixbv):
         fmt = fmt.format
     elif isinstance(fmt, FixedPointFormat):
-        fmt = tupel(fmt[:])
+        fmt = tuple(fmt[:])
     elif isinstance(fmt, tuple):
         fmt = fmt
     else:
@@ -154,7 +154,7 @@ def resize(val, fmt, round_mode='convergent', overflow_mode='saturate'):
     elif isinstance(val, float):
         fval = val
     else:
-        pass
+        fval = float(val)
         
     wl,iwl,fwl = fmt
     mm = 2**iwl
