@@ -173,7 +173,7 @@ class ConcatSignal(_ShadowSignal):
                     w = len(a)
                 lo = hi - w
                 if a in sigargs:
-                    newval[hi:lo] = a
+                    newval[hi:lo] = a[:]
                 hi = lo
             set_next(self, newval)
             yield sigargs

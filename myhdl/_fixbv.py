@@ -158,6 +158,9 @@ class fixbv(modbv):
 
     def _handleBounds(self):
         """ check bounds """
+        if self._val >= self._max:  #XXX: workaround for negative
+            msb = self._nrbits - 1
+            self._val -= 2 * (1 << msb)
         intbv._handleBounds(self)
 
     ###################################################################### 
@@ -211,7 +214,11 @@ class fixbv(modbv):
         else:
             # @todo: check for negative index and convert
             #        to the underlying intbv indexes
-            slc = intbv(self._val, _nrbits=self._nrbits)
+            retVal = self._val
+            if retVal < 0:  #XXX: workaround for negative
+                msb = self._nrbits-1
+                retVal += 2 * (1 << msb)
+            slc = intbv(retVal, _nrbits=self._nrbits)
             return slc.__getitem__(key)
 
     def __setitem__(self, key, val):
